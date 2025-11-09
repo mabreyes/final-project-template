@@ -1,0 +1,1 @@
+# MNIST Training Project

@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files and checkpoints
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.hdf5
+*.pb
+*.onnx
+*.pkl
+*.pickle
+*.joblib
+*.safetensors
+# Model directories (but not src/models/ which contains code)
+saved_models/
+checkpoints/
+weights/
+model_weights/
+*.weights
+# Exclude saved model directories but keep src/models/ code directory
+!/src/models/
+
+# Data directories (datasets are typically large)
+data/
+*.csv
+*.tsv
+*.parquet
+*.feather
+
+# Logs
+*.log
+
+# Ruff cache
+.ruff_cache/
