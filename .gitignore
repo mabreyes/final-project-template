@@ -70,3 +70,6 @@ data/
 
 # Ruff cache
 .ruff_cache/
+
+# GitHub Actions
+.github/workflows/.cache/

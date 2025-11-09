@@ -27,6 +27,7 @@ A comprehensive boilerplate template for machine learning training projects that
 - [Testing the Setup](#testing-the-setup)
 - [FAQ](#faq)
 - [Code Quality and Formatting](#code-quality-and-formatting)
+- [CI/CD Pipeline](#cicd-pipeline)
 - [Next Steps](#next-steps)
 - [Resources](#resources)
 
@@ -48,6 +49,7 @@ final-project-template/
 │   ├── __init__.py
 │   ├── config.py              # Configuration management
 │   ├── main.py                # Application entry point
+│   ├── ci_train.py            # CI/CD training script (no DB)
 │   ├── database/
 │   │   ├── __init__.py
 │   │   ├── base.py            # Database connection setup
@@ -73,6 +75,9 @@ final-project-template/
 ├── requirements-dev.txt       # Development dependencies (pre-commit, ruff)
 ├── pyproject.toml             # Ruff configuration
 ├── .pre-commit-config.yaml    # Pre-commit hooks configuration
+├── .github/
+│   └── workflows/
+│       └── ci.yml             # GitHub Actions CI/CD pipeline
 ├── .env.example               # Environment variables template
 └── README.md                  # This file
 ```
@@ -1614,6 +1619,63 @@ The project includes:
 Configuration files:
 - `.pre-commit-config.yaml`: Pre-commit hook configuration
 - `pyproject.toml`: Ruff linting and formatting rules
+
+## CI/CD Pipeline
+
+This project includes a GitHub Actions CI/CD pipeline that automatically:
+
+### What the Pipeline Does
+
+1. **Lint Check** (on every push/PR):
+   - Runs ruff linter to check code quality
+   - Verifies code formatting with ruff formatter
+   - Ensures code follows project standards
+
+2. **Training Test** (on every push/PR):
+   - Runs training with 2 epochs (configurable via environment variables)
+   - Displays training results in the workflow logs
+   - Verifies the training pipeline works correctly
+   - **Note**: Training runs without database persistence in CI
+
+### Workflow File
+
+The CI/CD configuration is in `.github/workflows/ci.yml`. It runs:
+- On pushes to `main`, `master`, or `develop` branches
+- On pull requests to those branches
+
+### Viewing CI Results
+
+1. Go to your GitHub repository
+2. Click on the "Actions" tab
+3. View workflow runs and their results
+4. Click on a run to see detailed logs, including:
+   - Linting results
+   - Training progress and final metrics
+   - Any errors or warnings
+
+### CI Training Configuration
+
+The CI training uses environment variables (set in the workflow):
+- `TRAINING_EPOCHS=2` (reduced for faster CI runs)
+- `TRAINING_BATCH_SIZE=64`
+- `TRAINING_DEVICE=cpu`
+
+You can modify these in `.github/workflows/ci.yml` if needed.
+
+### Running CI Training Locally
+
+To test the CI training script locally:
+
+```bash
+# Set environment variables (optional)
+export TRAINING_EPOCHS=2
+export TRAINING_BATCH_SIZE=64
+
+# Run CI training script
+python -m src.ci_train
+```
+
+This will run training without database persistence, just like in CI.
 
 ## License
 
